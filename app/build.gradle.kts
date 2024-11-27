@@ -1,8 +1,8 @@
 import java.io.ByteArrayOutputStream
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.android.application)
+  alias(libs.plugins.kotlin.android)
 }
 
 
@@ -26,97 +26,99 @@ val verCode = gitCount
 val verName = gitHash
 
 tasks.register("uninstall") {
-    exec {
-        isIgnoreExitValue = true
-        executable(android.adbExecutable)
-        args("shell", "pm", "uninstall", android.defaultConfig.applicationId!!)
-    }
+  exec {
+    isIgnoreExitValue = true
+    executable(android.adbExecutable)
+    args("shell", "pm", "uninstall", android.defaultConfig.applicationId!!)
+  }
 }
 
 fun execute(vararg command: String): String {
-    val outputStream = ByteArrayOutputStream()
-    project.exec {
-        commandLine(*command)
-        standardOutput = outputStream
-    }
-    return outputStream.toString().trim()
+  val outputStream = ByteArrayOutputStream()
+  project.exec {
+    commandLine(*command)
+    standardOutput = outputStream
+  }
+  return outputStream.toString().trim()
 }
 
 
 android {
-    namespace = "cloud.app.vvf.sampleext"
-    compileSdk = 35
+  namespace = "cloud.app.vvf.sampleext"
+  compileSdk = 35
 
-    defaultConfig {
-        applicationId = "cloud.app.vvf.sampleext"
-        minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+  defaultConfig {
+    applicationId = "cloud.app.vvf.sampleext"
+    minSdk = 24
+    targetSdk = 35
+    versionCode = 1
+    versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 
-        manifestPlaceholders.apply {
-            put("type", "cloud.app.vvf.${extType}")
-            put("id", extId)
-            put("class_path", "cloud.app.vvf.sampleClient.${extClass}")
-            put("version", verName)
-            put("version_code", verCode.toString())
-            extIconUrl?.let { put("icon_url", it) }
-            put("app_name", "Echo : $extName Extension")
-            put("name", extName)
-            extDescription?.let { put("description", it) }
-            put("author", extAuthor)
-            extAuthorUrl?.let { put("author_url", it) }
-            extRepoUrl?.let { put("repo_url", it) }
-            extUpdateUrl?.let { put("update_url", it) }
-        }
-        resValue("string", "id", extId)
-        resValue("string", "class_path", "$namespace.${extClass}")
-
-        versionName = verName
-        resValue("string", "version", verName)
-        versionCode = verCode
-        resValue("string", "version_code", verCode.toString())
-
-        extIconUrl?.let { resValue("string", "icon_url", it) }
-        resValue("string", "app_name", "Echo : $extName Extension")
-        resValue("string", "name", extName)
-        description?.let { resValue("string", "description", it) }
-
-        resValue("string", "author", extAuthor)
-        extAuthorUrl?.let { resValue("string", "author_url", it) }
-
-        extRepoUrl?.let { resValue("string", "repo_url", it) }
-        extUpdateUrl?.let { resValue("string", "update_url", it) }
+    manifestPlaceholders.apply {
+      put("type", "cloud.app.vvf.${extType}")
+      put("id", extId)
+      put("class_path", "cloud.app.vvf.sampleClient.${extClass}")
+      put("version", verName)
+      put("version_code", verCode.toString())
+      extIconUrl?.let { put("icon_url", it) }
+      put("app_name", "Echo : $extName Extension")
+      put("name", extName)
+      extDescription?.let { put("description", it) }
+      put("author", extAuthor)
+      extAuthorUrl?.let { put("author_url", it) }
+      extRepoUrl?.let { put("repo_url", it) }
+      extUpdateUrl?.let { put("update_url", it) }
     }
+    resValue("string", "id", extId)
+    resValue("string", "class_path", "$namespace.${extClass}")
+
+    versionName = verName
+    resValue("string", "version", verName)
+    versionCode = verCode
+    resValue("string", "version_code", verCode.toString())
+
+    extIconUrl?.let { resValue("string", "icon_url", it) }
+    resValue("string", "app_name", "Echo : $extName Extension")
+    resValue("string", "name", extName)
+    description?.let { resValue("string", "description", it) }
+
+    resValue("string", "author", extAuthor)
+    extAuthorUrl?.let { resValue("string", "author_url", it) }
+
+    extRepoUrl?.let { resValue("string", "repo_url", it) }
+    extUpdateUrl?.let { resValue("string", "update_url", it) }
+  }
 
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+  buildTypes {
+    release {
+      isMinifyEnabled = false
+      proguardFiles(
+        getDefaultProguardFile("proguard-android-optimize.txt"),
+        "proguard-rules.pro"
+      )
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+  }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+  kotlinOptions {
+    jvmTarget = "17"
+  }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+  implementation(libs.androidx.core.ktx)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.material)
+  testImplementation(libs.junit)
+  androidTestImplementation(libs.androidx.junit)
+  androidTestImplementation(libs.androidx.espresso.core)
+  implementation(libs.vividfusion)
+
 }
