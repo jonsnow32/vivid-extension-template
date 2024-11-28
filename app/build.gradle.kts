@@ -6,13 +6,13 @@ plugins {
 }
 
 
-val extType: String by project
-val extId: String by project
-val extClass: String by project
+val extType = "stream"
+val extId = "stream_client_sample"
+val extClass = "SampleClient"
 
-val extIconUrl: String? by project
-val extName: String by project
-val extDescription: String? by project
+val extIconUrl = "https://music.youtube.com/img/favicon_144.png"
+val extName = "SampleStreamClient"
+val extDescription = "SampleStreamClient"
 
 val extAuthor: String by project
 val extAuthorUrl: String? by project
@@ -60,13 +60,13 @@ android {
     manifestPlaceholders.apply {
       put("type", "cloud.app.vvf.${extType}")
       put("id", extId)
-      put("class_path", "cloud.app.vvf.sampleClient.${extClass}")
+      put("class_path", "cloud.app.vvf.sampleext.${extClass}")
       put("version", verName)
       put("version_code", verCode.toString())
-      extIconUrl?.let { put("icon_url", it) }
+      put("icon_url", extIconUrl)
       put("app_name", "Echo : $extName Extension")
       put("name", extName)
-      extDescription?.let { put("description", it) }
+      put("description", extDescription)
       put("author", extAuthor)
       extAuthorUrl?.let { put("author_url", it) }
       extRepoUrl?.let { put("repo_url", it) }
@@ -80,7 +80,7 @@ android {
     versionCode = verCode
     resValue("string", "version_code", verCode.toString())
 
-    extIconUrl?.let { resValue("string", "icon_url", it) }
+    resValue("string", "icon_url", extIconUrl)
     resValue("string", "app_name", "Echo : $extName Extension")
     resValue("string", "name", extName)
     description?.let { resValue("string", "description", it) }
