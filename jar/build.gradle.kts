@@ -57,15 +57,17 @@ fun execute(vararg command: String): String {
 }
 
 tasks {
+  // Task for creating the shadow JAR
   val shadowJar by getting(ShadowJar::class) {
     archiveBaseName.set(extId)
     archiveVersion.set(verName)
+    archiveExtension.set("vvf")
     manifest {
       attributes(
         mapOf(
           "Extension-Id" to extId,
           "Extension-Type" to extType,
-          "Extension-Class" to extClass,
+          "Extension-Class" to "cloud.app.vvf.jarsample.$extClass",
           "Extension-Version-Code" to verCode,
           "Extension-Version-Name" to verName,
           "Extension-Icon-Url" to extIconUrl,
@@ -80,17 +82,20 @@ tasks {
     }
     exclude("META-INF/*.kotlin_module")
     exclude("kotlin/**")
+  }
 
-    // Create GitHub release and upload JAR
+  // Task for creating the GitHub release and uploading the JAR
+  val createRelease by creating {
+    dependsOn(shadowJar) // Ensure shadowJar is built first
     doLast {
-      if(authToken.isNullOrEmpty()) return@doLast
+      if (authToken.isNullOrEmpty()) return@doLast
 
       val githubToken = authToken!! // Replace with your GitHub token
       val releaseTagName = verName // Use the version name as the tag name
       val releaseName = "Pre-Release $verName"
-      val releaseBody = gitMessage
+      val releaseBody = gitMessage.replace("\n", "\\n").replace("\"", "\\\"")
 
-      val githubApiUrl = "https://api.github.com/repos/jonsnow32/vivid-sample-extension/releases"
+      val githubApiUrl = "https://api.github.com/repos/${extAuthor}/vivid-sample-extension/releases"
       try {
         val releaseId = createGitHubRelease(
           githubApiUrl,
@@ -101,13 +106,14 @@ tasks {
           true
         )
         val uploadUrl = getReleaseUploadUrl(githubApiUrl, releaseId, githubToken)
-        uploadReleaseAsset(archiveFile.get().asFile, uploadUrl, githubToken)
+        uploadReleaseAsset(shadowJar.archiveFile.get().asFile, uploadUrl, githubToken)
       } catch (e: Exception) {
         println("Error: ${e.message}")
       }
     }
   }
 }
+
 
 // Helper functions
 fun createGitHubRelease(
@@ -125,14 +131,16 @@ fun createGitHubRelease(
   connection.setRequestProperty("Content-Type", "application/json")
   connection.doOutput = true
 
+  println("body= ${body}")
   val payload = """
         {
             "tag_name": "$tag",
             "name": "$name",
             "body": "$body",
-            "prerelease": "$isPreRelease"
+            "prerelease": $isPreRelease
         }
     """.trimIndent()
+
 
   OutputStreamWriter(connection.outputStream).use { it.write(payload) }
 
