@@ -1,6 +1,6 @@
 [versions]
 agp = "8.6.1"
-kotlin = "1.9.24"
+kotlin = "2.0.21"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -10,7 +10,6 @@ kotlinxCoroutinesCore = "1.8.1"
 material = "1.12.0"
 vividfusion = "4c2694bf81"
 jetbrainsKotlinJvm = "1.9.24"
-shadow = "8.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,4 +25,5 @@ vividfusion = { module = "com.github.jonsnow32:vividfusion", version.ref = "vivi
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+cloud-app-vivid-gradle = { id = "cloud.app.vvf.plugin", version = "1.0-SNAPSHOT" }
+android-library = { id = "com.android.library", version.ref = "agp" }
