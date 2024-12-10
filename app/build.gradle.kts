@@ -5,7 +5,6 @@ plugins {
   alias(libs.plugins.kotlin.android)
 }
 
-
 val extType = "stream"
 val extId = "stream_client_sample"
 val extClass = "SampleClient"
@@ -43,16 +42,20 @@ fun execute(vararg command: String): String {
 }
 
 
+vvfExtension {
+  iconUrl = "https://www.google.com/s2/favicons?domain=moviehab.com&sz=%size%"
+  authors = listOf("jonsnowapp")
+  version = 1
+  status = 1
+}
+
 android {
   namespace = "cloud.app.vvf.sampleext"
   compileSdk = 35
 
   defaultConfig {
-    applicationId = "cloud.app.vvf.sampleext"
     minSdk = 24
     targetSdk = 35
-    versionCode = 1
-    versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
