@@ -1,4 +1,4 @@
-package cloud.app.vvf.sampleext
+package cloud.app.vvf.extensions
 
 import android.util.Log
 import cloud.app.vvf.common.VVFExtension
@@ -10,11 +10,10 @@ import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.settings.PrefSettings
 import cloud.app.vvf.common.settings.Setting
 import cloud.app.vvf.common.settings.SettingMultipleChoice
-import cloud.app.vvf.sampleext.providers.RidoMoviesScraper
-import okhttp3.OkHttpClient
+import cloud.app.vvf.extensions.providers.RidoMoviesScraper
 
 @VVFExtension
-class SampleClient : StreamClient{
+class SampleClient : StreamClient {
   private lateinit var httpHelper: HttpHelper
 
   override val defaultSettings: List<Setting> = listOf(

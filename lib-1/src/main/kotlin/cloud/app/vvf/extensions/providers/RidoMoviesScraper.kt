@@ -1,10 +1,10 @@
-package cloud.app.vvf.sampleext.providers
+package cloud.app.vvf.extensions.providers
 
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.models.AVPMediaItem
 import cloud.app.vvf.common.models.SubtitleData
 import cloud.app.vvf.common.models.stream.StreamData
-import cloud.app.vvf.sampleext.utils.apmap
+import cloud.app.vvf.extensions.utils.apmap
 import org.jsoup.Jsoup
 
 class RidoMoviesScraper(httpHelper: HttpHelper) : WebScraper(httpHelper) {
