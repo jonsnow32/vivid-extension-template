@@ -1,4 +1,4 @@
-package cloud.app.vvf.sampleext.utils
+package cloud.app.vvf.jarsample.utils
 
 import android.util.Log
 import kotlinx.coroutines.*

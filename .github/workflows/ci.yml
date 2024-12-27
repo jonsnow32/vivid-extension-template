@@ -1,0 +1,24 @@
+name: CI Workflow
+
+# Trigger workflow on push to main or pull requests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Define jobs for the workflow
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Run a simple shell command
+      - name: Run Hello World
+        run: echo "Hello, GitHub Actions!"
