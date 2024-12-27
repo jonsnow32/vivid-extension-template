@@ -1,4 +1,4 @@
-package cloud.app.vvf.jarsample
+package cloud.app.vvf.extensions
 
 import android.util.Log
 import cloud.app.vvf.common.VVFExtension
@@ -10,7 +10,7 @@ import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.settings.PrefSettings
 import cloud.app.vvf.common.settings.Setting
 import cloud.app.vvf.common.settings.SettingMultipleChoice
-import cloud.app.vvf.jarsample.providers.RidoMoviesScraper
+import cloud.app.vvf.extensions.providers.RidoMoviesScraper
 
 @VVFExtension
 class SampleClient : StreamClient {

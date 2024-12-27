@@ -26,10 +26,9 @@ subprojects {
   apply(plugin = "cloud.app.vvf.plugin")
 
   vvfExtension {
-    setRepo(extRepoUrl ?: "https://github.com/jonsnow32/vivid-sample-extension")
+    setRepo(extRepoUrl ?: "https://github.com/jonsnow32/vivid-sample-extension", authToken)
     version = 1
     status = 1
-    gitToken = authToken
     isPreRelease = true
   }
 

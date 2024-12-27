@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
-  <uses-feature android:name="${type}" />
+  <uses-feature android:name="cloud.app.vvf.extension" />
   <application
+    android:theme="@style/Theme.SampleExt"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name">
     <meta-data
       android:name="class"
       android:value="${class_path}" />
-    <meta-data
-      android:name="id"
-      android:value="${id}" />
-
     <meta-data
       android:name="version_code"
       android:value="${version_code}" />
@@ -42,6 +39,26 @@
     <meta-data
       android:name="update_url"
       android:value="${update_url}" />
+    <meta-data
+      android:name="types"
+      android:value="${types}" />
+
+    <activity
+      android:name="cloud.app.vvf.sampleext.link.Opener"
+      android:exported="true">
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.MAIN" />
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+        <data android:host="music.youtube.com" />
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>

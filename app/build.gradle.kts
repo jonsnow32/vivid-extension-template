@@ -5,13 +5,11 @@ plugins {
   alias(libs.plugins.kotlin.android)
 }
 
-val extType = "stream"
-val extId = "stream_client_sample"
 val extClass = "SampleClient"
 
 val extIconUrl = "https://music.youtube.com/img/favicon_144.png"
-val extName = "SampleStreamClient"
-val extDescription = "SampleStreamClient"
+val extName = "Apk Sample Extension"
+val extDescription = "This is insalled Apk Sample Extension"
 
 val extAuthor: String by project
 val extAuthorUrl: String? by project
@@ -43,7 +41,7 @@ fun execute(vararg command: String): String {
 
 
 vvfExtension {
-  iconUrl = "https://www.google.com/s2/favicons?domain=moviehab.com&sz=%size%"
+  iconUrl = extIconUrl
   authors = listOf("jonsnowapp")
   version = 1
   status = 1
@@ -61,30 +59,29 @@ android {
 
 
     manifestPlaceholders.apply {
-      put("type", "cloud.app.vvf.${extType}")
-      put("id", extId)
-      put("class_path", "cloud.app.vvf.sampleext.${extClass}")
+      put("class_path", "cloud.app.vvf.extensions.${extClass}")
       put("version", verName)
       put("version_code", verCode.toString())
       put("icon_url", extIconUrl)
-      put("app_name", "Echo : $extName Extension")
+      put("app_name", "VVF : $extName Extension")
       put("name", extName)
       put("description", extDescription)
       put("author", extAuthor)
+      put("types", "stream") //Declare the extension type so the app knows it before loading the class, ex: "stream,database,subtitle"
+
       extAuthorUrl?.let { put("author_url", it) }
       extRepoUrl?.let { put("repo_url", it) }
       extUpdateUrl?.let { put("update_url", it) }
     }
-    resValue("string", "id", extId)
-    resValue("string", "class_path", "$namespace.${extClass}")
 
+    resValue("string", "class_path", "cloud.app.vvf.extensions.${extClass}")
     versionName = verName
     resValue("string", "version", verName)
     versionCode = verCode
     resValue("string", "version_code", verCode.toString())
 
     resValue("string", "icon_url", extIconUrl)
-    resValue("string", "app_name", "Echo : $extName Extension")
+    resValue("string", "app_name", "VVF : $extName Extension")
     resValue("string", "name", extName)
     description?.let { resValue("string", "description", it) }
 
@@ -94,7 +91,6 @@ android {
     extRepoUrl?.let { resValue("string", "repo_url", it) }
     extUpdateUrl?.let { resValue("string", "update_url", it) }
   }
-
 
   buildTypes {
     release {
@@ -115,13 +111,12 @@ android {
 }
 
 dependencies {
-
+  implementation(project(":lib-1"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompat)
   implementation(libs.material)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
-  implementation(libs.vividfusion)
-
+  compileOnly(libs.vividfusion)
 }

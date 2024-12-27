@@ -1,4 +1,4 @@
-package cloud.app.vvf.jarsample.providers
+package cloud.app.vvf.extensions.providers
 
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.helpers.network.utils.JsUnpacker

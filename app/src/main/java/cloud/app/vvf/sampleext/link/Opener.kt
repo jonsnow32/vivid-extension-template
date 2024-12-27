@@ -1,46 +1,51 @@
-package dev.brahmkshatriya.echo.link
+package cloud.app.vvf.sampleext.link
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import cloud.app.vvf.sampleext.R
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
 
 class Opener : Activity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
 
-    private val extensionId = "youtube-musicApp"
+    setContentView(R.layout.acitvity_opener)
+    super.onCreate(savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val uri = intent.data
-        if (uri != null) {
-            val type = uri.pathSegments[0]
-            val path = when (type) {
-                "channel" -> {
-                    val channelId = uri.pathSegments[1] ?: return
-                    "artist/$channelId"
-                }
+    handleUri(intent.data)
 
-                "playlist" -> {
-                    val playlistId = uri.getQueryParameter("list") ?: return
-                    "playlist/$playlistId"
-                }
-
-                "browse" -> {
-                    val browseId = uri.pathSegments[1] ?: return
-                    "album/$browseId"
-                }
-
-                "watch" -> {
-                    val videoId = uri.getQueryParameter("v") ?: return
-                    "track/$videoId"
-                }
-
-                else -> return
-            }
-            val uriString = "echo://music/$extensionId/$path"
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uriString)))
-            finishAndRemoveTask()
-        }
+    val startBtn = findViewById<MaterialButton>(R.id.startButton)
+    startBtn.setOnClickListener {
+      val url = findViewById<TextInputEditText>(R.id.textInputEditText).text.toString()
+      val uri = Uri.parse(url)
+      handleUri(uri)
     }
+  }
+
+  private fun handleUri(uri: Uri?) {
+    if (uri != null) {
+      val type = uri.pathSegments[0]
+      val path = when (type) {
+        "movie" -> {
+          val movieID = uri.pathSegments[1] ?: return
+          "movie/$movieID"
+        }
+
+        "episode" -> {
+          val showID = uri.pathSegments[1] ?: return
+          val season = uri.pathSegments[2] ?: return
+          val episode = uri.pathSegments[3] ?: return
+          "show/$showID/s/$season/e/$episode"
+        }
+        else -> return
+      }
+      val extensionId = getString(R.string.class_path)
+      val uriString = "vvf://extension/$extensionId/$path"
+      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uriString)))
+      finishAndRemoveTask()
+    }
+  }
 }
