@@ -33,6 +33,15 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
 
+      - name: Clear Gradle Cache
+        run: rm -rf ~/.gradle/caches
+
+      - name: List project structure
+        run: ls -R
+
+      - name: Debug Gradle settings
+        run: ./gradlew properties --info
+
       - name: Build Plugins
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
