@@ -23,14 +23,15 @@ val authToken: String? = project.findProperty("authToken") as String?
   ?: System.getenv("GITHUB_AUTH_TOKEN")
 
 subprojects {
-  apply(plugin = "kotlin-android")
-  apply(plugin = "cloud.app.vvf.plugin")
+  if (name != "app") { // Exclude the application module
+    apply(plugin = "kotlin-android")
+    apply(plugin = "cloud.app.vvf.plugin")
 
-  vvfExtension {
-    setRepo(extRepoUrl ?: "https://github.com/jonsnow32/vivid-sample-extension", authToken)
-    version = 1
-    status = 1
-    isPreRelease = true
+    vvfExtension {
+      setRepo(extRepoUrl ?: "https://github.com/jonsnow32/vivid-sample-extension", authToken)
+      version = 1
+      status = 1
+      isPreRelease = true
+    }
   }
-
 }

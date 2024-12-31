@@ -40,13 +40,6 @@ fun execute(vararg command: String): String {
 }
 
 
-vvfExtension {
-  iconUrl = extIconUrl
-  authors = listOf("jonsnowapp")
-  version = 1
-  status = 1
-}
-
 android {
   namespace = "cloud.app.vvf.sampleext"
   compileSdk = 35

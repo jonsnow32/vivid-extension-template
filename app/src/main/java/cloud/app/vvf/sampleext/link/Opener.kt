@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import cloud.app.vvf.extensions.SampleClient
 import cloud.app.vvf.sampleext.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
