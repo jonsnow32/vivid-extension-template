@@ -1,4 +1,13 @@
 pluginManagement {
+  resolutionStrategy {
+    eachPlugin {
+      requested.apply {
+        if(requested.id.toString() == "cloud.app.vvf.plugin")
+          useModule("com.github.jonsnow32:vivid-gradle:v1.0.0")
+      }
+    }
+  }
+
   repositories {
     mavenLocal()
     google {
@@ -12,6 +21,7 @@ pluginManagement {
     maven { url = uri("https://jitpack.io") }
     gradlePluginPortal()
   }
+
 }
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {

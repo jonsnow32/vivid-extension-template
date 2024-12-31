@@ -9,7 +9,7 @@ plugins {
   alias(libs.plugins.kotlin.android) apply false
   alias(libs.plugins.jetbrains.kotlin.jvm) apply false
   alias(libs.plugins.android.library) apply false
-  alias(libs.plugins.cloud.app.vivid.gradle) apply false
+  alias(libs.plugins.vivid.gradle) apply false
 }
 
 fun Project.vvfExtension(configuration: VvfExtension.() -> Unit) =

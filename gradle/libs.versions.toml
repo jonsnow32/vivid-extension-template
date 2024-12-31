@@ -25,5 +25,5 @@ vividfusion = { module = "com.github.jonsnow32:vividfusion", version.ref = "vivi
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-cloud-app-vivid-gradle = { id = "cloud.app.vvf.plugin", version = "1.0-SNAPSHOT" }
+vivid-gradle = { id = "cloud.app.vvf.plugin", version = "Use JitPack override version in settings.gradle.kts"}
 android-library = { id = "com.android.library", version.ref = "agp" }
