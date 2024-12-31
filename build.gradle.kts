@@ -19,7 +19,8 @@ fun Project.android(configuration: BaseExtension.() -> Unit) =
   extensions.getByName<BaseExtension>("android").configuration()
 
 val extRepoUrl: String? by project
-val authToken: String? by project
+val authToken: String? = project.findProperty("authToken") as String?
+  ?: System.getenv("GITHUB_AUTH_TOKEN")
 
 subprojects {
   apply(plugin = "kotlin-android")

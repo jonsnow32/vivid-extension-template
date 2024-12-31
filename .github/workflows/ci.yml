@@ -28,7 +28,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
+      - name: Configure Git User
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+
       - name: Build Plugins
+        env:
+          GITHUB_AUTH_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
         run: |
           chmod +x gradlew
           ./gradlew make uploadSource
