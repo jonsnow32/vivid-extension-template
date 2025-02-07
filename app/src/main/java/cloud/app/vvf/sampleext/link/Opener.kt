@@ -44,7 +44,7 @@ class Opener : Activity() {
         else -> return
       }
       val extensionId = getString(R.string.class_path)
-      val uriString = "vvf://extension/$extensionId/$path"
+      val uriString = "vvf://extensions/$extensionId/$path"
       startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uriString)))
       finishAndRemoveTask()
     }
