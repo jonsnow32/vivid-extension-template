@@ -35,7 +35,7 @@ class Opener : Activity() {
           "movie/$movieID"
         }
 
-        "episode" -> {
+        "tv" -> {
           val showID = uri.pathSegments[1] ?: return
           val season = uri.pathSegments[2] ?: return
           val episode = uri.pathSegments[3] ?: return

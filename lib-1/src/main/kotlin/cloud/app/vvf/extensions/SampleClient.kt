@@ -10,7 +10,8 @@ import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.settings.PrefSettings
 import cloud.app.vvf.common.settings.Setting
 import cloud.app.vvf.common.settings.SettingMultipleChoice
-import cloud.app.vvf.extensions.providers.RidoMoviesScraper
+import cloud.app.vvf.extensions.providers.Provider1
+import cloud.app.vvf.extensions.utils.amap
 
 @VVFExtension
 class SampleClient : StreamClient {
@@ -32,20 +33,30 @@ class SampleClient : StreamClient {
     subtitleCallback: (SubtitleData) -> Unit,
     callback: (StreamData) -> Unit
   ): Boolean {
-    try {
-      RidoMoviesScraper(httpHelper).invoke(mediaItem, subtitleCallback, callback)
-      return true;
-    } catch (e: Exception) {
-      Log.e("vvf", e.message, e)
-      return false
+    val providers = settings.getStringSet("active_providers_key")
+    providers?.toList()?.amap {
+      try {
+        getProvider(it).invoke(mediaItem, subtitleCallback, callback)
+      } catch (e: Exception) {
+        Log.e("vvf", e.message, e)
+      }
     }
+    return true
   }
+
+  private fun getProvider(name: String) = when(name) {
+    "website1" -> Provider1(httpHelper)
+    else -> throw Exception("Provider not found")
+  }
+
+  private lateinit var settings: PrefSettings;
 
   override fun init(
     prefSettings: PrefSettings,
     httpHelper: HttpHelper
   ) {
     this.httpHelper = httpHelper
+    this.settings = prefSettings
   }
 
   override suspend fun onExtensionSelected() {

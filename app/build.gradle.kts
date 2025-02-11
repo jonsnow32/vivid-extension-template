@@ -8,8 +8,8 @@ plugins {
 val extClass = "SampleClient"
 
 val extIconUrl = "https://music.youtube.com/img/favicon_144.png"
-val extName = "Apk Sample Extension"
-val extDescription = "This is insalled Apk Sample Extension"
+val extName = "Debug Sample Extension"
+val extDescription = "This is insalled Apk Debug Sample Extension"
 
 val extAuthor: String by project
 val extAuthorUrl: String? by project
@@ -22,13 +22,13 @@ val gitCount = execute("git", "rev-list", "--count", "HEAD").toInt()
 val verCode = gitCount
 val verName = gitHash
 
-tasks.register("uninstall") {
-  exec {
-    isIgnoreExitValue = true
-    executable(android.adbExecutable)
-    args("shell", "pm", "uninstall", android.defaultConfig.applicationId!!)
-  }
-}
+//tasks.register("uninstall") {
+//  exec {
+//    isIgnoreExitValue = true
+//    executable(android.adbExecutable)
+//    args("shell", "pm", "uninstall", android.defaultConfig.applicationId!!)
+//  }
+//}
 
 fun execute(vararg command: String): String {
   val outputStream = ByteArrayOutputStream()
@@ -56,7 +56,7 @@ android {
       put("version", verName)
       put("version_code", verCode.toString())
       put("icon_url", extIconUrl)
-      put("app_name", "VVF : $extName Extension")
+      put("app_name", "VVF : $extName")
       put("name", extName)
       put("description", extDescription)
       put("author", extAuthor)

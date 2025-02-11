@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">sampleExt</string>
     <string name="start">Start</string>
+    <string name="sample_tmdb_url">Enter URL (e.g., https://www.themoviedb.org/tv/93405/season/1/episode/1)</string>
 </resources>

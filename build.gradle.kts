@@ -23,6 +23,7 @@ val authToken: String? = project.findProperty("authToken") as String?
   ?: System.getenv("GITHUB_AUTH_TOKEN")
 
 subprojects {
+  println("name of subproject: $name") //null here
   if (name != "app") { // Exclude the application module
     apply(plugin = "kotlin-android")
     apply(plugin = "cloud.app.vvf.plugin")
