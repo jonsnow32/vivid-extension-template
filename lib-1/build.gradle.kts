@@ -35,8 +35,14 @@ android {
   }
 }
 
+
 dependencies {
   val compileOnly by configurations
   compileOnly(rootProject.libs.vividfusion)
   compileOnly(rootProject.libs.kotlinx.coroutines.core)
+
+  //service
+  implementation(rootProject.libs.tmdb)
+  implementation(rootProject.libs.trakt)
+  implementation(rootProject.libs.thetvdb)
 }

@@ -50,7 +50,6 @@ android {
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-
     manifestPlaceholders.apply {
       put("class_path", "cloud.app.vvf.extensions.${extClass}")
       put("version", verName)
@@ -60,7 +59,7 @@ android {
       put("name", extName)
       put("description", extDescription)
       put("author", extAuthor)
-      put("types", "stream") //Declare the extension type so the app knows it before loading the class, ex: "stream,database,subtitle"
+      put("types", "stream,database") //Declare the extension type so the app knows it before loading the class, ex: "stream,database,subtitle"
 
       extAuthorUrl?.let { put("author_url", it) }
       extRepoUrl?.let { put("repo_url", it) }
@@ -112,4 +111,6 @@ dependencies {
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
   compileOnly(libs.vividfusion)
+
+
 }

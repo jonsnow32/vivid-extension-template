@@ -6,11 +6,13 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
-kotlinxCoroutinesCore = "1.8.1"
+kotlinxCoroutinesCore = "1.10.1"
 material = "1.12.0"
-vividfusion = "4c2694bf81"
+vividfusion = "v1.0.2.2"
 jetbrainsKotlinJvm = "1.9.24"
-
+thetvdb = "2.4.0"
+tmdb = "2.11.0"
+trakt = "6.14.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +22,11 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 vividfusion = { module = "com.github.jonsnow32:vividfusion", version.ref = "vividfusion" }
+
+# service
+tmdb = { group = "com.uwetrottmann.tmdb2", name = "tmdb-java", version.ref = "tmdb" }
+thetvdb = { group = "com.uwetrottmann.thetvdb-java", name = "thetvdb-java", version.ref = "thetvdb" }
+trakt = { group = "com.uwetrottmann.trakt5", name = "trakt-java", version.ref = "trakt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

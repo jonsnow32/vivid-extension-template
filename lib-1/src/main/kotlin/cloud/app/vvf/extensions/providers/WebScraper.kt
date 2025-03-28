@@ -3,8 +3,8 @@ package cloud.app.vvf.extensions.providers
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.helpers.network.utils.JsUnpacker
 import cloud.app.vvf.common.models.AVPMediaItem
-import cloud.app.vvf.common.models.SubtitleData
 import cloud.app.vvf.common.models.stream.StreamData
+import cloud.app.vvf.common.models.subtitle.SubtitleData
 
 abstract class WebScraper(val httpHelper: HttpHelper) {
   abstract val name: String

@@ -33,6 +33,7 @@ subprojects {
       version = 1
       status = 1
       isPreRelease = true
+      types = listOf("stream,database")
     }
   }
 }
