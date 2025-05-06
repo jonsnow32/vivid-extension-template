@@ -5,29 +5,26 @@ import cloud.app.vvf.common.clients.mvdatabase.DatabaseClient
 import cloud.app.vvf.common.clients.provider.HttpHelperProvider
 import cloud.app.vvf.common.clients.provider.MessageFlowProvider
 import cloud.app.vvf.common.clients.streams.StreamClient
-import cloud.app.vvf.common.helpers.ImportType
 import cloud.app.vvf.common.helpers.Page
 import cloud.app.vvf.common.helpers.PagedData
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.models.AVPMediaItem
 import cloud.app.vvf.common.models.AVPMediaItem.Companion.toMediaItemsContainer
-import cloud.app.vvf.common.models.Actor
-import cloud.app.vvf.common.models.ExtensionMetadata
-import cloud.app.vvf.common.models.ExtensionType
 import cloud.app.vvf.common.models.ImageHolder.Companion.toImageHolder
 import cloud.app.vvf.common.models.MediaItemsContainer
-import cloud.app.vvf.common.models.Message
 import cloud.app.vvf.common.models.SearchItem
 import cloud.app.vvf.common.models.SortBy
-import cloud.app.vvf.common.models.Tab
+import cloud.app.vvf.common.models.actor.Actor
+import cloud.app.vvf.common.models.extension.Message
+import cloud.app.vvf.common.models.extension.Tab
 import cloud.app.vvf.common.models.movie.Episode
 import cloud.app.vvf.common.models.movie.GeneralInfo
 import cloud.app.vvf.common.models.movie.Ids
 import cloud.app.vvf.common.models.movie.Season
 import cloud.app.vvf.common.models.movie.Show
 import cloud.app.vvf.common.models.stream.PremiumType
-import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.models.subtitle.SubtitleData
+import cloud.app.vvf.common.models.video.Video
 import cloud.app.vvf.common.settings.PrefSettings
 import cloud.app.vvf.common.settings.Setting
 import cloud.app.vvf.common.settings.SettingCategory
@@ -115,12 +112,6 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
     SettingCategory(
       title = "Media content", key = "media_content_key",
       items = listOf(
-//        SettingSwitch(
-//          "Show English Movie/TV Show Only",
-//          "show_english_media_only_key",
-//          "Only display movies and TV shows in English.",
-//          false
-//        ),
         SettingSwitch(
           "Include Adult Content",
           PREF_INCLUDE_ADULT,
@@ -163,19 +154,8 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
           defaultEntryIndex = 0
         )
       )
-    ),
-
     )
-
-//  tmdb = AppTmdb(
-//  httpHelper.okHttpClient,
-//  prefSettings.getString(PREF_TMDB_API_KEY) ?: "4ef60b9d635f533695cbcaccb6603a57"
-//  )
-//  tvdb = AppTheTvdb(
-//  httpHelper.okHttpClient,
-//  prefSettings.getString(PREF_TVDB_API_KEY) ?: "4ef60b9d635f533695cbcaccb6603a57",
-//  prefSettings,
-//  )
+  )
 
   private lateinit var prefSettings: PrefSettings
 
@@ -206,6 +186,7 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
   override fun setMessageFlow(messageFlow: MutableSharedFlow<Message>) {
     this.messageFlow = messageFlow;
   }
+
   override fun onSettingsChanged(key: String, value: Any) {
     when (key) {
       PREF_TVDB_API_KEY -> {
@@ -342,8 +323,6 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
       )
     }
     result.add(popularActors)
-
-
     return result
   }
 
@@ -1063,7 +1042,7 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
   override suspend fun loadLinks(
     mediaItem: AVPMediaItem,
     subtitleCallback: (SubtitleData) -> Unit,
-    callback: (StreamData) -> Unit
+    callback: (Video) -> Unit
   ): Boolean {
 
     when (mediaItem) {
@@ -1098,7 +1077,7 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
 
   private fun processProviderTypes(
     providerRegion: WatchProviders.CountryInfo?,
-    callback: (StreamData) -> Unit
+    callback: (Video) -> Unit
   ) {
     providerRegion?.let {
       val link = it.link ?: ""
@@ -1124,8 +1103,9 @@ class SampleClient : DatabaseClient, StreamClient, HttpHelperProvider, MessageFl
     provider: WatchProvider,
     type: String,
     link: String
-  ): StreamData {
-    return StreamData(
+  ): Video {
+    return Video.RemoteVideo(
+      uri = link,
       originalUrl = link,
       providerName = "${provider.provider_name} ($type)",
       providerLogo = "https://image.tmdb.org/t/p/w500${provider.logo_path}",

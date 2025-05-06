@@ -1,7 +1,7 @@
 package cloud.app.vvf.extensions.services.tmdb
 
 import cloud.app.vvf.common.exceptions.MissingApiKeyException
-import cloud.app.vvf.common.models.ExtensionType
+import cloud.app.vvf.common.models.extension.ExtensionType
 import cloud.app.vvf.extensions.SampleClient.Companion.PREF_TMDB_API_KEY
 import com.uwetrottmann.tmdb2.Tmdb
 import com.uwetrottmann.tmdb2.exceptions.TmdbAuthenticationFailedException

@@ -2,8 +2,8 @@ package cloud.app.vvf.extensions.providers
 
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.models.AVPMediaItem
-import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.models.subtitle.SubtitleData
+import cloud.app.vvf.common.models.video.Video
 import kotlinx.coroutines.delay
 
 class Provider2(httpHelper: HttpHelper) : WebScraper(httpHelper) {
@@ -15,7 +15,7 @@ class Provider2(httpHelper: HttpHelper) : WebScraper(httpHelper) {
   override suspend fun invoke(
     avpMediaItem: AVPMediaItem,
     subtitleCallback: (SubtitleData) -> Unit,
-    callback: (StreamData) -> Unit
+    callback: (Video) -> Unit
   ) {
     var imdbId: String? = null
     var tmdbId: Int? = null
@@ -43,7 +43,7 @@ class Provider2(httpHelper: HttpHelper) : WebScraper(httpHelper) {
     for(i in 1..100) {
       delay(300)
       callback.invoke(
-        StreamData("$baseUrl/$imdbId/$i.mp4", "$baseUrl/$imdbId/$i"))
+        Video.RemoteVideo(uri = "$baseUrl/$imdbId/$i.mp4"))
     }
 
   }

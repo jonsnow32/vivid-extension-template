@@ -2,14 +2,14 @@ package cloud.app.vvf.extensions.services.tmdb
 
 import android.annotation.SuppressLint
 import cloud.app.vvf.common.models.AVPMediaItem
-import cloud.app.vvf.common.models.Actor
 import cloud.app.vvf.common.models.ImageHolder.Companion.toImageHolder
+import cloud.app.vvf.common.models.actor.Actor
 import cloud.app.vvf.common.models.movie.GeneralInfo
 import cloud.app.vvf.common.models.movie.Ids
 import cloud.app.vvf.common.models.movie.Movie
 import cloud.app.vvf.common.models.movie.Season
 import cloud.app.vvf.common.models.movie.Show
-import cloud.app.vvf.common.models.stream.StreamData
+import cloud.app.vvf.common.models.video.Video
 import com.uwetrottmann.tmdb2.entities.BaseMovie
 import com.uwetrottmann.tmdb2.entities.BasePerson
 import com.uwetrottmann.tmdb2.entities.BaseTvShow
@@ -67,10 +67,12 @@ fun BaseMovie.toMediaItem(): AVPMediaItem.MovieItem {
     movie.generalInfo.actors = this.credits?.cast?.map {
       Actor(name = it.name ?: "No name", image = it.profile_path?.toImageHolder(), id = it.id)
     }
-    movie.generalInfo.videos = this.videos?.results?.filter { it.type == VideoType.TRAILER }?.map { StreamData(
-      originalUrl = "${it.site}/${it.id}",
-      resolvedUrl = "${it.site}/${it.id}",
-    ) }
+    movie.generalInfo.videos = this.videos?.results?.filter { it.type == VideoType.TRAILER }?.map {
+      Video.RemoteVideo(
+        originalUrl = "${it.site}/${it.id}",
+        uri = "${it.site}/${it.id}",
+      )
+    }
   }
 
   return AVPMediaItem.MovieItem(movie)
@@ -102,7 +104,8 @@ fun BaseTvShow.toMediaItem(): AVPMediaItem.ShowItem {
     show.recommendations = this.recommendations?.results?.map { toShow(it) }
     show.generalInfo.genres = this.genres?.map { it.name ?: "unknown" }
     show.status = this.status
-    show.contentRating = this.content_ratings?.results?.firstOrNull { it.iso_3166_1 == "US" }?.rating
+    show.contentRating =
+      this.content_ratings?.results?.firstOrNull { it.iso_3166_1 == "US" }?.rating
     show.generalInfo.actors = this.credits?.cast?.map {
       Actor(name = it.name ?: "No name", image = it.profile_path?.toImageHolder(), id = it.id)
     }

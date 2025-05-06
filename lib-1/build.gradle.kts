@@ -10,7 +10,7 @@ vvfExtension {
   authors = listOf("jonsnow2")
   version = 1
   status = 1
-  types = listOf("stream","subtitle")
+  types = listOf("stream", "subtitle")
 }
 
 android {

@@ -3,8 +3,8 @@ package cloud.app.vvf.extensions.providers
 import cloud.app.vvf.common.helpers.network.HttpHelper
 import cloud.app.vvf.common.helpers.network.utils.JsUnpacker
 import cloud.app.vvf.common.models.AVPMediaItem
-import cloud.app.vvf.common.models.stream.StreamData
 import cloud.app.vvf.common.models.subtitle.SubtitleData
+import cloud.app.vvf.common.models.video.Video
 
 abstract class WebScraper(val httpHelper: HttpHelper) {
   abstract val name: String
@@ -13,7 +13,7 @@ abstract class WebScraper(val httpHelper: HttpHelper) {
   abstract suspend operator fun invoke(
     avpMediaItem: AVPMediaItem,
     subtitleCallback: (SubtitleData) -> Unit,
-    callback: (StreamData) -> Unit
+    callback: (Video) -> Unit
   )
 
   private val packedRegex = Regex("""eval\(function\(p,a,c,k,e,.*\)\)""")
